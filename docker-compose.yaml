@@ -1,6 +1,6 @@
 services:
   web:
-    image: diehockn
+    image: diehockn.com
     ports:
       - 5012:3000
     networks:
