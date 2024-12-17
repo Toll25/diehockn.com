@@ -8,6 +8,9 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Die Hockn</title>
+</svelte:head>
 <nav class="fixed flex h-12 w-full border-b-2 p-2 align-middle backdrop-blur">
 	<a
 		href="/"
