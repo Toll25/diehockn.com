@@ -25,6 +25,6 @@
 	</div>
 </nav>
 
-<div class="pt-16">
+<div class="flex h-full w-full pt-16">
 	{@render children()}
 </div>
