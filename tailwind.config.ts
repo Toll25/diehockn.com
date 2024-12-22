@@ -5,6 +5,19 @@ export default {
 
 	theme: {
 		extend: {
+			animation: {
+				scroll: 'scroll 2s linear infinite'
+			},
+			keyframes: {
+				scroll: {
+					'0%': {
+						backgroundPosition: '0 0'
+					},
+					'100%': {
+						backgroundPosition: '32px -64px'
+					}
+				}
+			},
 			dropShadow: {
 				glow: ['0 0px 20px rgba(255,255, 255, 0.35)', '0 0px 65px rgba(255, 255,255, 0.2)']
 			},
