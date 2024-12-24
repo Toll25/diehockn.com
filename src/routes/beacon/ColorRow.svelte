@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+
 	export let r: number = 255;
 	export let g: number = 255;
 	export let b: number = 255;
@@ -39,6 +41,11 @@
 		const toHex = (v: number) => v.toString(16).padStart(2, '0').toUpperCase();
 		return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 	};
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	function handleDelete() {
+		dispatch('delete');
+	}
 	export let startTime: number;
 	$: elapsedSeconds = (Date.now() - startTime) / 1000;
 </script>
@@ -52,4 +59,7 @@
 	<div class="mx-2 w-36 content-center">rgb({r},{g},{b})</div>
 	<div class="mx-2 w-36 content-center">hsl({rgbToHsl(r, g, b).join(',')})</div>
 	<div class="mx-2 content-center">{rgbToHex(r, g, b)}</div>
+	<div class="mx-2 flex h-8 w-8 cursor-pointer items-center justify-center">
+		<Icon icon="material-symbols:delete" class="h-6 w-6" onclick={handleDelete} />
+	</div>
 </div>

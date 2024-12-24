@@ -73,14 +73,14 @@
 	let { colors = $bindable() } = $props();
 </script>
 
-<div class="my-8 flex flex-row">
+<div class="flex flex-row">
 	<div
 		id="input"
 		class="mr-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"
 		style="border-color: rgb({color[0]}, {color[1]}, {color[2]});"
 	>
 		<input
-			class="bg-transparent text-text placeholder-subtext focus:outline-none"
+			class="bg-transparent font-mono text-text placeholder-subtext focus:outline-none"
 			placeholder="rgb(255,255,255)"
 			bind:value={input}
 			onkeypress={(e) => {
