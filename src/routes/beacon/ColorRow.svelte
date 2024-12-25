@@ -1,10 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	export let r: number = 255;
-	export let g: number = 255;
-	export let b: number = 255;
-
 	const rgbToHsl = (r: number, g: number, b: number) => {
 		r /= 255;
 		g /= 255;
@@ -41,13 +37,15 @@
 		const toHex = (v: number) => v.toString(16).padStart(2, '0').toUpperCase();
 		return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 	};
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-	function handleDelete() {
-		dispatch('delete');
-	}
-	export let startTime: number;
-	$: elapsedSeconds = (Date.now() - startTime) / 1000;
+
+	let {
+		startTime,
+		r,
+		g,
+		b,
+		handleDelete
+	}: { startTime: number; r: number; g: number; b: number; handleDelete: any } = $props();
+	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
 </script>
 
 <div class="flex flex-row font-mono" id="color">

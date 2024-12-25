@@ -110,7 +110,7 @@
 			<div class="h-8"></div>
 		</div>
 	{:else}
-		<TextInput bind:colors />
+		<TextInput bind:colors {startTime} />
 
 		{#if colors[0]}
 			<div class="mt-8 rounded border-2 border-primary bg-surface1 p-2" id="colors_container">
@@ -121,7 +121,7 @@
 							g={color[1]}
 							b={color[2]}
 							{startTime}
-							on:delete={() => deleteColor(index)}
+							handleDelete={() => deleteColor(index)}
 						/>
 					{/key}
 				{/each}

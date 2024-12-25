@@ -12,9 +12,9 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
-    "resolutions": {
-        "esrap": "~1.2.0"
-    },
+	"resolutions": {
+		"esrap": "~1.2.0"
+	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",
 		"@iconify/svelte": "^4.1.0",

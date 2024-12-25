@@ -12,5 +12,6 @@
 - Accuracy Chooser
 - Resource counter (how many panes to build it)
 - Add add button to input
-- Add display beacon to input
-- Calculate only when at least one element
+- Make Actual color and Used Colors collapsable
+- Copy Button for important fields
+- information cards for what you can input, and other stuff

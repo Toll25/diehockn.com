@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import htmlColorsImport from './html-colors.json';
+	const htmlColors: Record<string, string> = htmlColorsImport;
 
 	const hex = new RegExp(/^(0x|#)?([\dA-Fa-f]{6}|[\dA-Fa-f]{3})$/, 'i');
 	const hsl = new RegExp(
@@ -63,20 +65,41 @@
 			const matches = trimmed_input.match(rgb)!;
 
 			return [parseInt(matches[1]), parseInt(matches[2]), parseInt(matches[3])];
+		} else if (htmlColors[trimmed_input.toLowerCase()]) {
+			let hexColor = htmlColors[trimmed_input.toLowerCase()];
+			let hex: string = hexColor.replace(/^(#|0x)/, '');
+			if (hex.length === 3) {
+				hex = hex
+					.split('')
+					.map((char) => char + char)
+					.join('');
+			}
+			const r = parseInt(hex.slice(0, 2), 16);
+			const g = parseInt(hex.slice(2, 4), 16);
+			const b = parseInt(hex.slice(4, 6), 16);
+			return [r, g, b];
 		} else {
-			return [0, 0, 0];
+			return [255, 255, 255];
 		}
 	}
 	let input = $state('');
 	let color = $derived(parseColor(input));
 
-	let { colors = $bindable() } = $props();
+	let { startTime, colors = $bindable() }: { colors: number[][]; startTime: number } = $props();
+	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
 </script>
 
 <div class="flex flex-row">
+	<div class="h-9 content-center">
+		<div
+			class="h-8 w-8 animate-scroll bg-cover bg-blend-multiply"
+			style="background-color: rgb({color[0]}, {color[1]}, {color[2]}); background-image: url('/BeaconAssets/beacon_beam.png');
+       			animation-delay: calc(-1s * {elapsedSeconds}); "
+		></div>
+	</div>
 	<div
 		id="input"
-		class="mr-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"
+		class="mx-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"
 		style="border-color: rgb({color[0]}, {color[1]}, {color[2]});"
 	>
 		<input
