@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import BeaconBeam from './BeaconBeam.svelte';
 
 	const rgbToHsl = (r: number, g: number, b: number) => {
 		r /= 255;
@@ -38,25 +39,16 @@
 		return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 	};
 
-	let {
-		startTime,
-		r,
-		g,
-		b,
-		handleDelete
-	}: { startTime: number; r: number; g: number; b: number; handleDelete: any } = $props();
-	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
+	let { color, handleDelete }: { color: number[]; handleDelete: any } = $props();
 </script>
 
 <div class="flex flex-row font-mono" id="color">
-	<div
-		class=" mx-2 h-8 w-8 animate-scroll bg-blend-multiply"
-		style="background-color: rgb({r}, {g}, {b}); background-image: url('/BeaconAssets/beacon_beam_large.png');
-       			animation-delay: calc(-1s * {elapsedSeconds}); "
-	></div>
-	<div class="mx-2 w-36 content-center">rgb({r},{g},{b})</div>
-	<div class="mx-2 w-36 content-center">hsl({rgbToHsl(r, g, b).join(',')})</div>
-	<div class="mx-2 content-center">{rgbToHex(r, g, b)}</div>
+	<BeaconBeam {color} />
+	<div class="mx-2 w-36 content-center">rgb({color[0]},{color[1]},{color[2]})</div>
+	<div class="mx-2 w-36 content-center">
+		hsl({rgbToHsl(color[0], color[1], color[2]).join(',')})
+	</div>
+	<div class="mx-2 content-center">{rgbToHex(color[0], color[1], color[2])}</div>
 	<div class="mx-2 flex h-8 w-8 cursor-pointer items-center justify-center">
 		<Icon icon="material-symbols:delete" class="h-6 w-6" onclick={handleDelete} />
 	</div>

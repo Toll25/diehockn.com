@@ -13,12 +13,14 @@
 </script>
 
 <script lang="ts">
+	import { setContext } from 'svelte';
+
 	import ColorRow from './ColorRow.svelte';
 	import ResultDisplay from './ResultDisplay.svelte';
 	import TextInput from './TextInput.svelte';
 
 	let colors = $state([]);
-	let startTime = Date.now();
+	setContext('startTime', Date.now());
 	function deleteColor(index: number) {
 		colors.splice(index, 1);
 		colors = [...colors]; // Trigger reactivity
@@ -99,7 +101,7 @@
 			>
 				{#each results as result, index}
 					{#key index}
-						<ResultDisplay {result} {startTime} />
+						<ResultDisplay {result} />
 					{/key}
 				{/each}
 			</div>
@@ -110,19 +112,13 @@
 			<div class="h-8"></div>
 		</div>
 	{:else}
-		<TextInput bind:colors {startTime} />
+		<TextInput bind:colors />
 
 		{#if colors[0]}
 			<div class="mt-8 rounded border-2 border-primary bg-surface1 p-2" id="colors_container">
 				{#each colors as color, index}
 					{#key index}
-						<ColorRow
-							r={color[0]}
-							g={color[1]}
-							b={color[2]}
-							{startTime}
-							handleDelete={() => deleteColor(index)}
-						/>
+						<ColorRow {color} handleDelete={() => deleteColor(index)} />
 					{/key}
 				{/each}
 			</div>

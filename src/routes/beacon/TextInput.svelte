@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import htmlColorsImport from './html-colors.json';
+	import BeaconBeam from './BeaconBeam.svelte';
 	const htmlColors: Record<string, string> = htmlColorsImport;
 
 	const hex = new RegExp(/^(0x|#)?([\dA-Fa-f]{6}|[\dA-Fa-f]{3})$/, 'i');
@@ -85,18 +86,11 @@
 	let input = $state('');
 	let color = $derived(parseColor(input));
 
-	let { startTime, colors = $bindable() }: { colors: number[][]; startTime: number } = $props();
-	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
+	let { colors = $bindable() }: { colors: number[][] } = $props();
 </script>
 
 <div class="flex flex-row">
-	<div class="h-9 content-center">
-		<div
-			class="h-8 w-8 animate-scroll bg-blend-multiply"
-			style="background-color: rgb({color[0]}, {color[1]}, {color[2]}); background-image: url('/BeaconAssets/beacon_beam_large.png');
-       			animation-delay: calc(-1s * {elapsedSeconds}); "
-		></div>
-	</div>
+	<BeaconBeam {color} />
 	<div
 		id="input"
 		class="mx-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Approximation } from './+page.svelte';
+	import BeaconBeam from './BeaconBeam.svelte';
 	import PaneColorDisplay from './PaneColorDisplay.svelte';
 
-	let { result, startTime }: { result: Approximation; startTime: number } = $props();
-	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
+	let { result }: { result: Approximation } = $props();
 	let panes = $derived.by(() => {
 		let temp = JSON.parse(JSON.stringify(result.panes));
 		temp.reverse();
@@ -12,12 +12,7 @@
 </script>
 
 <div class="flex h-full w-40 min-w-40 flex-col content-center items-center align-middle">
-	<div
-		class=" mx-2 h-full w-8 animate-scroll bg-blend-multiply"
-		style="background-color: rgb({result.color.red}, {result.color.green}, {result.color
-			.blue}); background-image: url('/BeaconAssets/beacon_beam_large.png');
-       			animation-delay: calc(-1s * {elapsedSeconds}); "
-	></div>
+	<BeaconBeam color={[result.color.red, result.color.green, result.color.blue]} />
 	<div
 		class="box-border flex h-fit w-full flex-col border-2 border-x-0 border-b-0 border-subtext p-2 font-mono"
 	>
