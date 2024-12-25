@@ -14,7 +14,7 @@ export default {
 						backgroundPosition: '0 0'
 					},
 					'100%': {
-						backgroundPosition: '32px -64px'
+						backgroundPosition: '32px -96px'
 					}
 				}
 			},

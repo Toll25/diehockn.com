@@ -1,7 +1,12 @@
 # Major Features
 
-- Projects Page
-- Services Page
+## Projects Page
+
+- Everything
+
+## Services Page
+
+- Everything
 
 ## Beacon Calculator
 
@@ -15,3 +20,14 @@
 - Make Actual color and Used Colors collapsable
 - Copy Button for important fields
 - information cards for what you can input, and other stuff
+
+## Horse Plinko
+
+- Fancier Shadows
+- Custom horse model
+- Spawn button
+- Clear button
+- Differant spawnable models
+- Moving cylinders
+- Outer walls
+- Disco Mode

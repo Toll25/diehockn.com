@@ -50,8 +50,8 @@
 
 <div class="flex flex-row font-mono" id="color">
 	<div
-		class=" mx-2 h-8 w-8 animate-scroll bg-cover bg-blend-multiply"
-		style="background-color: rgb({r}, {g}, {b}); background-image: url('/BeaconAssets/beacon_beam.png');
+		class=" mx-2 h-8 w-8 animate-scroll bg-blend-multiply"
+		style="background-color: rgb({r}, {g}, {b}); background-image: url('/BeaconAssets/beacon_beam_large.png');
        			animation-delay: calc(-1s * {elapsedSeconds}); "
 	></div>
 	<div class="mx-2 w-36 content-center">rgb({r},{g},{b})</div>

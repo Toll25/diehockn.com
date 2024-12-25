@@ -92,8 +92,8 @@
 <div class="flex flex-row">
 	<div class="h-9 content-center">
 		<div
-			class="h-8 w-8 animate-scroll bg-cover bg-blend-multiply"
-			style="background-color: rgb({color[0]}, {color[1]}, {color[2]}); background-image: url('/BeaconAssets/beacon_beam.png');
+			class="h-8 w-8 animate-scroll bg-blend-multiply"
+			style="background-color: rgb({color[0]}, {color[1]}, {color[2]}); background-image: url('/BeaconAssets/beacon_beam_large.png');
        			animation-delay: calc(-1s * {elapsedSeconds}); "
 		></div>
 	</div>
