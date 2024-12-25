@@ -23,7 +23,6 @@
 	setContext('startTime', Date.now());
 	function deleteColor(index: number) {
 		colors.splice(index, 1);
-		colors = [...colors]; // Trigger reactivity
 	}
 
 	let display = $state(false);
