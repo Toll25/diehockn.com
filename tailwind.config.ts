@@ -11,16 +11,10 @@ export default {
 			keyframes: {
 				scroll: {
 					'0%': {
-						backgroundPosition: '0 0',
-						width: '32px'
-					},
-					'50%': {
-						backgroundPosition: '32px -128px',
-						width: '40px'
+						backgroundPosition: '0 0'
 					},
 					'100%': {
-						backgroundPosition: '64px -256px',
-						width: '32px'
+						backgroundPosition: '64px -256px'
 					}
 				}
 			},

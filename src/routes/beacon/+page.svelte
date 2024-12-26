@@ -3,12 +3,16 @@
 		panes: string[];
 		distance: number;
 		color: Color;
+		originalColor: Color;
 	}
 
 	export interface Color {
 		red: number;
 		green: number;
 		blue: number;
+	}
+	export function colorToArray(color: Color): number[] {
+		return [color.red, color.green, color.blue];
 	}
 </script>
 
@@ -36,7 +40,6 @@
 		);
 
 		const callApi = async (item: number[]) => {
-			console.log('Sent request for:', item);
 			const response = await fetch(
 				`https://api.diehockn.com/beacon/approximation/custom?r=${item[0]}&g=${item[1]}&b=${item[2]}`,
 				{
@@ -47,7 +50,6 @@
 					}
 				}
 			);
-			console.log('Responded');
 			return await response.json();
 		};
 
@@ -62,7 +64,13 @@
 
 				await Promise.all(apiPromises);
 
-				results = colors.map((item: number[]) => responseMap.get(JSON.stringify(item)));
+				results = colors.map((item: number[]) => {
+					const apiResponse = responseMap.get(JSON.stringify(item));
+					return {
+						...apiResponse,
+						originalColor: { red: item[0], green: item[1], blue: item[2] }
+					};
+				});
 			} catch (error) {
 				console.error('Error fetching API data:', error);
 			} finally {
