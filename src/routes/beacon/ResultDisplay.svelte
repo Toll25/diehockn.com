@@ -31,6 +31,15 @@
 	}
 	makeRequests();
 	let colors: Color[] = $state([]);
+	function toUpper(str: string) {
+		return str
+			.toLowerCase()
+			.split(' ')
+			.map(function (word: string) {
+				return word[0].toUpperCase() + word.substr(1);
+			})
+			.join(' ');
+	}
 </script>
 
 <div class="flex h-full w-40 min-w-40 flex-col content-center items-center align-middle">
@@ -48,12 +57,8 @@
 				<div
 					class="group absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform"
 					style="background-image: url('/BeaconAssets/Glass/Big/{pane}_stained_glass.png')"
-				>
-					<span
-						class="absolute -right-3 -top-0 block translate-x-full rounded-md border-[2px] border-primary bg-surface1 px-2 py-1 text-center font-minecraft capitalize text-white opacity-0 transition-opacity group-hover:opacity-100"
-						>{pane} Stained Glass</span
-					>
-				</div>
+					title="{toUpper(pane.replace('_', ' '))} Stained Glass"
+				></div>
 			</div>
 		{/each}
 
