@@ -55,7 +55,7 @@
 					<BeaconBeam color={colors[index] ? colorToArray(colors[index]) : [255, 255, 255]} />
 				</div>
 				<div
-					class="group absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform"
+					class="group absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform cursor-help"
 					style="background-image: url('/BeaconAssets/Glass/Big/{pane}_stained_glass.png')"
 					title="{toUpper(pane.replace('_', ' '))} Stained Glass"
 				></div>
