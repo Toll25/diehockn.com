@@ -40,7 +40,12 @@
 	>
 		<BeaconBeam color={colorToArray(result.originalColor)} />
 	</div>
-	<div class="flex h-full w-full flex-col justify-start overflow-scroll">
+	<div class="flex h-full w-full flex-col overflow-scroll">
+		<div class="relative flex-grow">
+			<div class="z-10 flex h-full justify-center">
+				<BeaconBeam color={colorToArray(result.color)} />
+			</div>
+		</div>
 		{#each result.panes as pane, index}
 			<div class="relative">
 				<div class="z-10 flex h-28 justify-center">
@@ -58,9 +63,10 @@
 				<BeaconBeam color={[255, 255, 255]} />
 			</div>
 		</div>
-
-		<div class="z-10 flex h-full justify-center">
-			<BeaconBeam color={[255, 255, 255]} />
+		<div class="relative flex-grow">
+			<div class="z-10 flex h-full justify-center">
+				<BeaconBeam color={[255, 255, 255]} />
+			</div>
 		</div>
 	</div>
 	<div class="box-border flex w-full flex-col font-mono">
