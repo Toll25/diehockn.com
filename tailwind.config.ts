@@ -30,6 +30,9 @@ export default {
 				primary: '#8586e8',
 				secondary: '#81187c',
 				accent: '#d72d96'
+			},
+			fontFamily: {
+				minecraft: ['Minecraft Regular', 'minecraftiaregular', 'Code2000', 'mono']
 			}
 		}
 	},

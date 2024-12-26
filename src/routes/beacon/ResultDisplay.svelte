@@ -3,11 +3,10 @@
 	import BeaconBeam from './BeaconBeam.svelte';
 	import PaneColorDisplay from './PaneColorDisplay.svelte';
 
-	let { result }: { result: Approximation } = $props();
+	let { result, collapsed }: { result: Approximation; collapsed: boolean } = $props();
 	let panes = $derived.by(() => {
 		return JSON.parse(JSON.stringify(result.panes));
 	});
-	let collapsed = $state(true);
 	function makeRequests() {
 		const callApi = async (item: string[]) => {
 			let compoundString = item.join(',');
@@ -40,21 +39,21 @@
 	>
 		<BeaconBeam color={colorToArray(result.originalColor)} />
 	</div>
-	<div class="flex h-full w-full flex-col overflow-scroll">
-		<div class="relative flex-grow">
-			<div class="z-10 flex h-full justify-center">
-				<BeaconBeam color={colorToArray(result.color)} />
-			</div>
-		</div>
+	<div class="flex h-full w-full flex-col">
 		{#each result.panes as pane, index}
 			<div class="relative">
 				<div class="z-10 flex h-28 justify-center">
 					<BeaconBeam color={colors[index] ? colorToArray(colors[index]) : [255, 255, 255]} />
 				</div>
 				<div
-					class="absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform"
+					class="group absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform"
 					style="background-image: url('/BeaconAssets/Glass/Big/{pane}_stained_glass.png')"
-				></div>
+				>
+					<span
+						class="absolute -right-3 -top-0 block translate-x-full rounded-md border-[2px] border-primary bg-surface1 px-2 py-1 text-center font-minecraft capitalize text-white opacity-0 transition-opacity group-hover:opacity-100"
+						>{pane} Stained Glass</span
+					>
+				</div>
 			</div>
 		{/each}
 
@@ -63,15 +62,10 @@
 				<BeaconBeam color={[255, 255, 255]} />
 			</div>
 		</div>
-		<div class="relative flex-grow">
-			<div class="z-10 flex h-full justify-center">
-				<BeaconBeam color={[255, 255, 255]} />
-			</div>
-		</div>
 	</div>
 	<div class="box-border flex w-full flex-col font-mono">
 		{#if !collapsed}
-			<div class="overflow-scroll rounded border-2 border-subtext p-2">
+			<div class="overflow-scroll border-2 border-x-0 border-b-0 border-subtext p-2">
 				<div class="">
 					<strong>Used Colors:</strong>
 					<div class="text-sm">
@@ -81,38 +75,38 @@
 					</div>
 				</div>
 				<div class="inline-flex text-center">
-					<strong>dE:</strong>
+					<div
+						class="cursor-help font-bold underline decoration-dotted"
+						title="Delta E is a measure of color proximity. Lower is better. Values ≤1.0 means the difference is not perceptible by human eyes."
+					>
+						dE
+					</div>
+					<strong>:</strong>
 					{result.distance.toFixed(2)}
 				</div>
 				<div class="">
 					<strong>Actual Color: </strong><br />
 					<div class="text-sm">
-						<u class="decoration-red-500">red:</u>
+						<u class="decoration-red-500">red</u>:&nbsp;&nbsp;
 						{result.color.red}<br />
-						<u class="decoration-green-500">green: </u>
+						<u class="decoration-green-500">green</u>:
 						{result.color.green}<br />
-						<u class="decoration-blue-500">blue: </u>
+						<u class="decoration-blue-500">blue</u>:&nbsp;
 						{result.color.blue}
 					</div>
 				</div>
 				<div class="">
 					<strong>Target Color: </strong><br />
 					<div class="text-sm">
-						<u class="decoration-red-500">red:</u>
+						<u class="decoration-red-500">red</u>:&nbsp;&nbsp;
 						{result.originalColor.red}<br />
-						<u class="decoration-green-500">green: </u>
+						<u class="decoration-green-500">green</u>:
 						{result.originalColor.green}<br />
-						<u class="decoration-blue-500">blue: </u>
+						<u class="decoration-blue-500">blue</u>:&nbsp;
 						{result.originalColor.blue}
 					</div>
 				</div>
 			</div>
 		{/if}
-		<div class="flex w-full content-center items-center justify-center pb-2">
-			<button
-				class="h-fit w-fit rounded bg-primary px-1 text-background"
-				onclick={() => (collapsed = !collapsed)}>Info</button
-			>
-		</div>
 	</div>
 </div>

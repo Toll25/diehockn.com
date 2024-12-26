@@ -90,6 +90,7 @@
 		display = false;
 		colors = [];
 	}
+	let collapsed = $state(true);
 </script>
 
 <div class="flex h-full w-full flex-col items-center">
@@ -103,19 +104,22 @@
 			<div>Loading!!!</div>
 		{:else}
 			<div
-				class="flex h-full max-w-[70%] flex-row overflow-y-auto rounded border-2 border-primary bg-surface1"
+				class="flex h-fit max-w-[70%] flex-row overflow-x-scroll rounded border-2 border-primary bg-surface1"
 				id="colors_container"
 			>
 				{#each results as result, index}
 					{#key index}
-						<ResultDisplay {result} />
+						<ResultDisplay {result} {collapsed} />
 					{/key}
 				{/each}
 			</div>
 		{/if}
 		<div class="mt-8">
 			<button class="rounded bg-primary px-2 py-1 text-background" onclick={input}>Return</button>
-
+			<button
+				class="rounded bg-primary px-2 py-1 text-background"
+				onclick={() => (collapsed = !collapsed)}>Show Details</button
+			>
 			<div class="h-8"></div>
 		</div>
 	{:else}
