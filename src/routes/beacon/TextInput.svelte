@@ -91,9 +91,12 @@
 
 <div class="flex flex-row">
 	<BeaconBeam {color} />
+	<div title="Possible Input Methods: rgb(), rgba(), hsl(), #FFF, #FFFFFF, HTML Colors">
+		<Icon icon="mdi:information-outline" class="ml-2 mr-1 h-9 cursor-help text-subtext" />
+	</div>
 	<div
 		id="input"
-		class="mx-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"
+		class="mr-4 flex h-8 items-center rounded border-2 bg-surface1 p-4"
 		style="border-color: rgb({color[0]}, {color[1]}, {color[2]});"
 	>
 		<input
