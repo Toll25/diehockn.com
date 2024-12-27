@@ -11,7 +11,7 @@
 <svelte:head>
 	<title>Die Hockn</title>
 </svelte:head>
-<nav class="fixed flex h-12 w-full border-b-2 p-2 align-middle backdrop-blur">
+<nav class="fixed z-[99999999] flex h-12 w-full border-b-2 p-2 align-middle backdrop-blur">
 	<a
 		href="/"
 		class="flex items-center whitespace-nowrap bg-gradient-to-r from-primary to-accent bg-clip-text text-3xl font-bold text-transparent"

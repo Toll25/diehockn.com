@@ -42,16 +42,16 @@
 	}
 </script>
 
-<div class="flex h-full w-40 min-w-40 flex-col content-center items-center align-middle">
+<div class="flex h-fit w-40 min-w-40 flex-col content-center items-center align-middle">
 	<div
-		class="box-border flex h-16 min-h-16 w-full flex-col items-center overflow-scroll border-2 border-x-0 border-t-0 border-subtext font-mono"
+		class="box-border flex h-16 min-h-16 w-full flex-col items-center border-2 border-x-0 border-t-0 border-subtext font-mono"
 	>
 		<BeaconBeam color={colorToArray(result.originalColor)} />
 	</div>
-	<div class="flex h-full w-full flex-col">
+	<div class="flex h-fit w-full flex-col">
 		{#each result.panes as pane, index}
 			<div class="relative">
-				<div class="z-10 flex h-28 justify-center">
+				<div class="flex h-28 justify-center">
 					<BeaconBeam color={colors[index] ? colorToArray(colors[index]) : [255, 255, 255]} />
 				</div>
 				<div
@@ -63,14 +63,14 @@
 		{/each}
 
 		<div class="relative">
-			<div class="z-10 flex h-12 justify-center">
+			<div class="flex h-12 justify-center">
 				<BeaconBeam color={[255, 255, 255]} />
 			</div>
 		</div>
 	</div>
 	<div class="box-border flex w-full flex-col font-mono">
 		{#if !collapsed}
-			<div class="overflow-scroll border-2 border-x-0 border-b-0 border-subtext p-2">
+			<div class="border-2 border-x-0 border-b-0 border-subtext p-2">
 				<div class="">
 					<strong>Used Colors:</strong>
 					<div class="text-sm">

@@ -113,7 +113,9 @@
 </script>
 
 <div class="flex flex-row">
-	<BeaconBeam {color} />
+	<div class="h-9">
+		<BeaconBeam {color} />
+	</div>
 	<div title="Possible Input Methods: rgb(), rgba(), hsl(), #FFF, #FFFFFF, HTML Colors">
 		<Icon icon="mdi:information-outline" class="mx-2 h-9 cursor-help text-subtext" />
 	</div>

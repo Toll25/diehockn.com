@@ -93,7 +93,7 @@
 	let collapsed = $state(true);
 </script>
 
-<div class="flex h-full w-full flex-col items-center">
+<div class="flex h-fit w-full flex-col items-center">
 	<div class="mb-8 flex w-full items-center justify-center pt-2">
 		<div class="">
 			<div class="text-2xl font-bold">Beacon Calculator</div>
@@ -104,7 +104,7 @@
 			<div>Loading!!!</div>
 		{:else}
 			<div
-				class="flex h-fit max-w-[70%] flex-row overflow-x-scroll rounded border-2 border-primary bg-surface1"
+				class="flex h-fit max-w-[70%] flex-row overflow-x-auto overflow-y-visible rounded border-2 border-primary bg-surface1"
 				id="colors_container"
 			>
 				{#each results as result, index}
