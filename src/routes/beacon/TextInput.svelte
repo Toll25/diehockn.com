@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import htmlColorsImport from './html-colors.json';
 	import BeaconBeam from './BeaconBeam.svelte';
+	import { untrack } from 'svelte';
 	const htmlColors: Record<string, string> = htmlColorsImport;
 
 	const hex = new RegExp(/^(0x|#)?([\dA-Fa-f]{6}|[\dA-Fa-f]{3})$/, 'i');
@@ -86,6 +87,28 @@
 	let input = $state('');
 	let color = $derived(parseColor(input));
 
+	let colorPickerValue = $state('#000000');
+	let initialized = $state(false);
+	function explicitEffect(fn: () => void, depsFn: () => void) {
+		$effect(() => {
+			depsFn();
+			untrack(fn);
+		});
+	}
+
+	explicitEffect(
+		() => {
+			if (!initialized) {
+				initialized = true;
+			} else {
+				input = colorPickerValue.toUpperCase();
+				colors = [...untrack(() => colors), parseColor(colorPickerValue.toUpperCase())];
+			}
+		},
+		() => [colorPickerValue]
+	);
+
+	let colorPicker: HTMLElement;
 	let { colors = $bindable() }: { colors: number[][] } = $props();
 </script>
 
@@ -101,7 +124,7 @@
 	>
 		<input
 			class="bg-transparent font-mono text-text placeholder-subtext focus:outline-none"
-			placeholder="rgb(255,255,255)"
+			placeholder="#FFF,rgb(),..."
 			bind:value={input}
 			onkeypress={(e) => {
 				if (e.key == 'Enter') {
@@ -111,10 +134,14 @@
 		/>
 	</div>
 
-	<div
+	<button
 		id="color_picker"
 		class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-primary"
+		onclick={() => {
+			colorPicker.click();
+		}}
 	>
 		<Icon class="h-5/6 w-5/6" icon="circum:picker-half" />
-	</div>
+	</button>
+	<input type="color" class="hidden" bind:value={colorPickerValue} bind:this={colorPicker} />
 </div>
