@@ -92,7 +92,7 @@
 <div class="flex flex-row">
 	<BeaconBeam {color} />
 	<div title="Possible Input Methods: rgb(), rgba(), hsl(), #FFF, #FFFFFF, HTML Colors">
-		<Icon icon="mdi:information-outline" class="ml-2 mr-1 h-9 cursor-help text-subtext" />
+		<Icon icon="mdi:information-outline" class="mx-2 h-9 cursor-help text-subtext" />
 	</div>
 	<div
 		id="input"
