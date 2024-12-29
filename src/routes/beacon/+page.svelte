@@ -23,6 +23,8 @@
 	import ResultDisplay from './ResultDisplay.svelte';
 	import TextInput from './TextInput.svelte';
 	import Icon from '@iconify/svelte';
+	import Loading from './Loading.svelte';
+	import PaneColorDisplay from './PaneColorDisplay.svelte';
 
 	let colors = $state([]);
 	setContext('startTime', Date.now());
@@ -44,13 +46,13 @@
 			let values: { depth: number; cutoff: number } = { depth: 3, cutoff: 3 };
 			if (dropdownValue === 'High') {
 				values.depth = 6;
-				values.cutoff = 5;
+				values.cutoff = 6;
 			} else if (dropdownValue === 'Medium') {
+				values.depth = 6;
+				values.cutoff = 5;
+			} else if (dropdownValue === 'Low') {
 				values.depth = 5;
 				values.cutoff = 4;
-			} else if (dropdownValue === 'Low') {
-				values.depth = 4;
-				values.cutoff = 3;
 			}
 			const response = await fetch(
 				`https://api.diehockn.com/beacon/approximation/custom?r=${item[0]}&g=${item[1]}&b=${item[2]}`,
@@ -87,7 +89,7 @@
 				console.error('Error fetching API data:', error);
 			} finally {
 				loading = false;
-				console.log(results);
+				// console.log(results);
 			}
 		};
 		fetchApiData();
@@ -105,6 +107,19 @@
 	let collapsed = $state(true);
 	let dropdown = $state(false);
 	let dropdownValue = $state('Medium');
+
+	let counts: Record<string, number> = $derived.by(() => {
+		let counts: Record<string, number> = {};
+		for (const result of results) {
+			for (const pane of result.panes) {
+				counts[pane] = (counts[pane] || 0) + 1;
+			}
+		}
+
+		return counts;
+	});
+	let resourceDisplay = $state(false);
+	$inspect(counts);
 </script>
 
 <div class="flex h-fit w-full flex-col items-center">
@@ -115,7 +130,7 @@
 	</div>
 	{#if display}
 		{#if loading}
-			<div>Loading!!!</div>
+			<Loading />
 		{:else}
 			<div
 				class="flex h-fit max-w-[70%] flex-row overflow-x-auto overflow-y-visible rounded border-2 border-primary bg-surface1"
@@ -127,15 +142,39 @@
 					{/key}
 				{/each}
 			</div>
+
+			{#if resourceDisplay}
+				<div class="mt-8 flex flex-col rounded border-2 border-secondary bg-surface1 p-2 font-mono">
+					{#each Object.entries(counts) as [color, count]}
+						<div class="inline-flex">
+							<div class="w-12">
+								{count}x
+							</div>
+							<PaneColorDisplay {color} />
+							<br />
+						</div>
+					{/each}
+				</div>
+			{/if}
+
+			<div class="mt-8 flex flex-col items-center">
+				<div class="mb-2 flex flex-row">
+					<button
+						class="mr-2 rounded bg-primary px-2 py-1 text-background"
+						onclick={() => (collapsed = !collapsed)}>Show Details</button
+					>
+
+					<button
+						class="rounded bg-primary px-2 py-1 text-background"
+						onclick={() => (resourceDisplay = !resourceDisplay)}>Show Resources</button
+					>
+				</div>
+				<button class=" w-fit rounded bg-primary px-2 py-1 text-background" onclick={input}
+					>Return</button
+				>
+				<div class="h-8"></div>
+			</div>
 		{/if}
-		<div class="mt-8">
-			<button class="rounded bg-primary px-2 py-1 text-background" onclick={input}>Return</button>
-			<button
-				class="rounded bg-primary px-2 py-1 text-background"
-				onclick={() => (collapsed = !collapsed)}>Show Details</button
-			>
-			<div class="h-8"></div>
-		</div>
 	{:else}
 		<TextInput bind:colors />
 
@@ -182,7 +221,7 @@
 								class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
 							>
 								<span>High</span>
-								<span class="text-subtext">(5 sec/color)</span>
+								<span class="text-subtext">(6 sec/color)</span>
 							</button>
 							<button
 								onclick={() => {
@@ -202,7 +241,7 @@
 								class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
 							>
 								<span>Low</span>
-								<span class="text-subtext">(almost instant)</span>
+								<span class="text-subtext">(0.3 sec/color)</span>
 							</button>
 						</div>
 					{/if}
