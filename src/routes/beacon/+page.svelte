@@ -22,6 +22,7 @@
 	import ColorRow from './ColorRow.svelte';
 	import ResultDisplay from './ResultDisplay.svelte';
 	import TextInput from './TextInput.svelte';
+	import Icon from '@iconify/svelte';
 
 	let colors = $state([]);
 	setContext('startTime', Date.now());
@@ -40,13 +41,24 @@
 		);
 
 		const callApi = async (item: number[]) => {
+			let values: { depth: number; cutoff: number } = { depth: 3, cutoff: 3 };
+			if (dropdownValue === 'High') {
+				values.depth = 6;
+				values.cutoff = 5;
+			} else if (dropdownValue === 'Medium') {
+				values.depth = 5;
+				values.cutoff = 4;
+			} else if (dropdownValue === 'Low') {
+				values.depth = 4;
+				values.cutoff = 3;
+			}
 			const response = await fetch(
 				`https://api.diehockn.com/beacon/approximation/custom?r=${item[0]}&g=${item[1]}&b=${item[2]}`,
 				{
 					method: 'GET',
 					headers: {
-						depth: '3',
-						cutoff: '3'
+						depth: values.depth.toString(),
+						cutoff: values.cutoff.toString()
 					}
 				}
 			);
@@ -91,6 +103,8 @@
 		colors = [];
 	}
 	let collapsed = $state(true);
+	let dropdown = $state(false);
+	let dropdownValue = $state('Medium');
 </script>
 
 <div class="flex h-fit w-full flex-col items-center">
@@ -135,9 +149,64 @@
 			</div>
 
 			<div class="mt-8">
-				<button class="rounded bg-primary px-2 py-1 text-background" onclick={calculate}
+				<button class=" rounded bg-primary px-2 py-1 text-background" onclick={calculate}
 					>Calculate</button
 				>
+				<div class="relative ml-2 inline-block text-left">
+					Accuracy:
+
+					<div class="relative w-28 min-w-28">
+						<button
+							class="flex w-full items-center justify-center rounded bg-primary px-2 py-1 text-background"
+							onclick={() => {
+								dropdown = !dropdown;
+							}}
+						>
+							<Icon icon="mdi:chevron-down" class="absolute left-2"></Icon>
+							<span>{dropdownValue}</span>
+						</button>
+					</div>
+					{#if dropdown}
+						<div
+							class="animate-fadeIn absolute right-0
+                        mt-2 w-44 origin-top-right
+                        rounded border-2 border-secondary bg-surface1
+                        "
+							id="dropdownMenuRight"
+						>
+							<button
+								onclick={() => {
+									dropdownValue = 'High';
+									dropdown = false;
+								}}
+								class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
+							>
+								<span>High</span>
+								<span class="text-subtext">(5 sec/color)</span>
+							</button>
+							<button
+								onclick={() => {
+									dropdownValue = 'Medium';
+									dropdown = false;
+								}}
+								class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
+							>
+								<span>Medium</span>
+								<span class="text-subtext">(2 sec/color)</span>
+							</button>
+							<button
+								onclick={() => {
+									dropdownValue = 'Low';
+									dropdown = false;
+								}}
+								class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
+							>
+								<span>Low</span>
+								<span class="text-subtext">(almost instant)</span>
+							</button>
+						</div>
+					{/if}
+				</div>
 
 				<div class="h-8"></div>
 			</div>
