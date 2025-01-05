@@ -3,10 +3,11 @@
 	import { OrbitControls } from '@threlte/extras';
 
 	import Plane from './Plane.svelte';
-	import { CollisionGroups, Debug, World } from '@threlte/rapier';
+	import { CollisionGroups, World } from '@threlte/rapier';
 	import Ground from './Ground.svelte';
 	import Horse from './Horse.svelte';
 	import Cylinder from './Cylinder.svelte';
+	import { Color, SpotLight } from 'three';
 
 	let autoRotate: boolean = false;
 	let enableDamping: boolean = true;
@@ -16,6 +17,8 @@
 	let minPolarAngle: number = 0;
 	let maxPolarAngle: number = Math.PI;
 	let enableZoom: boolean = true;
+
+	let pointLight: SpotLight;
 </script>
 
 <T.PerspectiveCamera makeDefault position={[0, 0, 30]} lookAt.y={0.5}>
@@ -31,7 +34,22 @@
 	/>
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position.y={10} position.z={10} />
+<T.SpotLight
+	position.y={20}
+	position.z={20}
+	position.x={-20}
+	color={new Color(214, 2, 112)}
+	intensity={10}
+	castShadow
+/>
+<!-- <T.SpotLight -->
+<!-- 	position.y={20} -->
+<!-- 	position.z={20} -->
+<!-- 	position.x={20} -->
+<!-- 	color={new Color(0, 56, 168)} -->
+<!-- 	intensity={100} -->
+<!-- /> -->
+<!-- <T.SpotLightHelper light={pointLight} /> -->
 <T.AmbientLight intensity={0.3} />
 
 <World>

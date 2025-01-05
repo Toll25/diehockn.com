@@ -6,7 +6,7 @@
 
 <T.Group {position} rotation={[0, Math.PI * 0.5, Math.PI * 0.5]}>
 	<AutoColliders shape={'convexHull'}>
-		<T.Mesh receiveShadow>
+		<T.Mesh receiveShadow castShadow>
 			<T.CylinderGeometry args={[1, 1, 8]} />
 			<T.MeshStandardMaterial color="red" />
 		</T.Mesh>

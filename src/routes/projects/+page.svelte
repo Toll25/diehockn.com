@@ -19,19 +19,19 @@
 
 <script lang="ts">
 	import Card from './Card.svelte';
-	import dataImport from './data.json';
 
-	const data: { entries: Project[] } = dataImport;
+	import dataImport from './data.json';
+	let data: Project[] = dataImport['entries'];
 </script>
 
-<div class="h-full w-full">
+<div class="flex h-full w-full flex-col">
 	<div class="mb-8 flex w-full items-center justify-center pt-2">
 		<div class="">
-			<div class="text-2xl font-bold">My Projects</div>
+			<div class="text-2xl font-bold">Plinko</div>
 		</div>
 	</div>
-	<div class="flex w-full flex-row flex-wrap justify-evenly">
-		{#each data.entries as project}
+	<div class="flex h-full w-full flex-wrap justify-evenly">
+		{#each data as project}
 			<Card {project} />
 		{/each}
 	</div>

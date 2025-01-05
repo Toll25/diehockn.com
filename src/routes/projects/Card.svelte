@@ -10,6 +10,7 @@
 >
 	<div id="image wrapper" class="h-[40%] rounded-t-lg border-x-2 border-t-2 border-inherit">
 		<img
+			alt="{project.id}-picture"
 			src="./Projects/{project.id}-picture.png"
 			class="h-full w-full rounded-t-lg object-contain"
 		/>
