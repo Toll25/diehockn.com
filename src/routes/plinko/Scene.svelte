@@ -4,7 +4,7 @@
 
 	import Plane from './Plane.svelte';
 	import { AutoColliders, CollisionGroups, Debug, RigidBody, World } from '@threlte/rapier';
-	import CoinPusher from './CoinPusher.svelte';
+	import CoinPusher2 from './CoinPusher2.svelte';
 
 	let autoRotate: boolean = false;
 	let enableDamping: boolean = true;
@@ -45,5 +45,6 @@
 			</T.Mesh>
 		</AutoColliders>
 	</RigidBody>
-	<CoinPusher />
+	<Debug />
+	<CoinPusher2 />
 </World>
