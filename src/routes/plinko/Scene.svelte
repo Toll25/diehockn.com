@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { T } from '@threlte/core';
-	import { OrbitControls } from '@threlte/extras';
+	import { T, useLoader } from '@threlte/core';
+	import { Environment, OrbitControls } from '@threlte/extras';
 
 	import Plane from './Plane.svelte';
-	import { CollisionGroups, Debug, World } from '@threlte/rapier';
-	import Ground from './Ground.svelte';
-	import Horse from './Horse.svelte';
-	import Cylinder from './Cylinder.svelte';
+	import { AutoColliders, CollisionGroups, Debug, RigidBody, World } from '@threlte/rapier';
+	import CoinPusher from './CoinPusher.svelte';
 
 	let autoRotate: boolean = false;
 	let enableDamping: boolean = true;
@@ -18,7 +16,8 @@
 	let enableZoom: boolean = true;
 </script>
 
-<T.PerspectiveCamera makeDefault position={[0, 0, 30]} lookAt.y={0.5}>
+<Environment url={'/billiard_hall_2k.hdr'} isBackground={true} />
+<T.PerspectiveCamera makeDefault position={[10, 6, 0]}>
 	<OrbitControls
 		{enableDamping}
 		{autoRotate}
@@ -31,21 +30,20 @@
 	/>
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position.y={10} position.z={10} />
-<T.AmbientLight intensity={0.3} />
+<!-- <T.DirectionalLight position.y={10} position.z={10} /> -->
+<!-- <T.AmbientLight intensity={0.3} /> -->
 
 <World>
 	<CollisionGroups groups={[0, 15]}>
-		<Ground />
 		<Plane />
-		<Cylinder position={[3, 4, 2]} />
-		<Cylinder position={[-3, 4, 2]} />
-		<Cylinder position={[0, 0, 2]} />
-		<Cylinder position={[6, 0, 2]} />
-		<Cylinder position={[-6, 0, 2]} />
-		<Cylinder position={[3, -4, 2]} />
-		<Cylinder position={[-3, -4, 2]} />
 	</CollisionGroups>
-
-	<Horse />
+	<RigidBody>
+		<AutoColliders shape={'cuboid'}>
+			<T.Mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[-1.18, 2.5, 0]}>
+				<T.BoxGeometry args={[0.2, 0.2, 0.2]} />
+				<T.MeshStandardMaterial color={'white'} />
+			</T.Mesh>
+		</AutoColliders>
+	</RigidBody>
+	<CoinPusher />
 </World>
