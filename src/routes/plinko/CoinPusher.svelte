@@ -9,18 +9,20 @@
 
 	const gltf = useGltf('/CoinPusher.glb');
 	export const { actions, mixer } = useGltfAnimations(gltf, ref);
+
 	let pusher: Mesh;
 	let collider: ColliderClass;
+	let pusherGroup: Group;
+
+	let counter = 0.5;
 	let direction = 1;
 	let speed = 1;
-	let pusherGroup: Group;
-	let counter = 0.5;
 
-	const { start, stop, started, task } = useTask((delta) => {
+	useTask((delta) => {
 		const deltaSpeed = speed * delta;
 		counter += deltaSpeed * direction;
 		if (counter <= 0.1 || counter > 1) {
-			direction *= -1; // Reverse direction
+			direction *= -1;
 		}
 		if (pusher) {
 			pusher.scale.x = counter;
@@ -30,7 +32,6 @@
 			collider.setTranslation(new Vector3(counter * (2 / 3) - 2.175, 1.05, 0));
 		}
 	});
-	// Animation loop to move the pusher
 </script>
 
 <T is={ref} {...$$restProps}>

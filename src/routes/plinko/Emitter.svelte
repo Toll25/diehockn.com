@@ -2,12 +2,9 @@
 	import { T, useTask } from '@threlte/core';
 	import type { Euler, Vector3 } from 'three';
 	import Particle from './Particle.svelte';
-	let direction = -1;
-	let positionX = 0;
-
-	let speed = 1;
 
 	let bodies: Body[] = [];
+
 	const getId = () => {
 		return Math.random().toString(16).slice(2);
 	};
@@ -26,11 +23,16 @@
 	let lastBodyMounted: number = 0;
 	let bodyEveryMilliseconds = 1500;
 	let longevityMilliseconds = 80000;
-	const { start, stop, started, task } = useTask((delta) => {
+
+	let direction = -1;
+	let positionX = 0;
+	let speed = 1;
+
+	useTask((delta) => {
 		const deltaSpeed = speed * delta;
 		positionX += deltaSpeed * direction;
 		if (positionX <= -0.5 || positionX > 0.5) {
-			direction *= -1; // Reverse direction
+			direction *= -1;
 		}
 		if (lastBodyMounted + bodyEveryMilliseconds < Date.now()) {
 			const body: Body = {
