@@ -12,12 +12,13 @@
 	let pusher: Mesh;
 	let collider: ColliderClass;
 	let direction = 1;
-	let speed = 0.005;
+	let speed = 1;
 	let pusherGroup: Group;
 	let counter = 0.5;
 
 	const { start, stop, started, task } = useTask((delta) => {
-		counter += speed * direction;
+		const deltaSpeed = speed * delta;
+		counter += deltaSpeed * direction;
 		if (counter <= 0.1 || counter > 1) {
 			direction *= -1; // Reverse direction
 		}
@@ -36,7 +37,7 @@
 	{#await gltf}
 		<slot name="fallback" />
 	{:then gltf}
-		<T.Group name="Scene" receiveShadow castShadow>
+		<T.Group name="Scene">
 			<T.Mesh
 				receiveShadow
 				castShadow
