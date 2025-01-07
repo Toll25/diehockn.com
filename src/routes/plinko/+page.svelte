@@ -1,7 +1,6 @@
 <script>
 	import { Canvas } from '@threlte/core';
 	import Scene from './Scene.svelte';
-	import { Environment } from '@threlte/extras';
 </script>
 
 <div class="flex h-full w-full flex-col">
