@@ -3,7 +3,7 @@
 	import { Environment, OrbitControls } from '@threlte/extras';
 
 	import Plane from './Plane.svelte';
-	import { AutoColliders, CollisionGroups, Debug, RigidBody, World } from '@threlte/rapier';
+	import { AutoColliders, CollisionGroups, RigidBody, World } from '@threlte/rapier';
 	import CoinPusher2 from './CoinPusher2.svelte';
 
 	let autoRotate: boolean = false;
@@ -30,7 +30,7 @@
 	/>
 </T.PerspectiveCamera>
 
-<!-- <T.DirectionalLight position.y={10} position.z={10} /> -->
+<T.DirectionalLight position={[5, 5, 5]} castShadow intensity={20} color={0xff0000} />
 <!-- <T.AmbientLight intensity={0.3} /> -->
 
 <World>
@@ -39,12 +39,11 @@
 	</CollisionGroups>
 	<RigidBody>
 		<AutoColliders shape={'cuboid'}>
-			<T.Mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[-1.18, 2.5, 0]}>
+			<T.Mesh receiveShadow castShadow rotation={[-Math.PI / 2, 0, 0]} position={[-1.18, 2.5, 0]}>
 				<T.BoxGeometry args={[0.2, 0.2, 0.2]} />
 				<T.MeshStandardMaterial color={'white'} />
 			</T.Mesh>
 		</AutoColliders>
 	</RigidBody>
-	<Debug />
 	<CoinPusher2 />
 </World>

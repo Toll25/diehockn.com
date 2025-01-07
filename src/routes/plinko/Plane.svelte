@@ -25,7 +25,7 @@
 					{#await heightMap then heightMap}
 						{#await aoMap then aoMap}
 							{#await textureMap then textureMap}
-								<T.Mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+								<T.Mesh receiveShadow castShadow rotation={[-Math.PI / 2, 0, 0]}>
 									<T.PlaneGeometry args={[20, 20]} />
 									<T.MeshStandardMaterial
 										{roughnessMap}
