@@ -21,7 +21,7 @@
 	});
 </script>
 
-<Environment url={'/billiard_hall_2k.hdr'} isBackground={true} />
+<Environment url={'/Plinko/billiard_hall_2k.hdr'} isBackground={true} />
 <T.PerspectiveCamera makeDefault position={[10, 6, 0]}>
 	<OrbitControls enableDamping />
 </T.PerspectiveCamera>

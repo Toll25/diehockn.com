@@ -5,7 +5,7 @@
 
 	export const ref = new Group();
 
-	const gltf = useGltf('/MonkeyInABox.glb');
+	const gltf = useGltf('/Plinko/MonkeyInABox.glb');
 	export const { actions, mixer } = useGltfAnimations(gltf, ref);
 	$: $actions['LatchAction.001']?.play();
 	$: $actions['SuzanneAction']?.play();

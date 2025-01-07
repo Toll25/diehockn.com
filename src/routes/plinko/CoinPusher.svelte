@@ -7,7 +7,7 @@
 
 	export const ref = new Group();
 
-	const gltf = useGltf('/CoinPusher.glb');
+	const gltf = useGltf('/Plinko/CoinPusher.glb');
 	export const { actions, mixer } = useGltfAnimations(gltf, ref);
 
 	let pusher: Mesh;

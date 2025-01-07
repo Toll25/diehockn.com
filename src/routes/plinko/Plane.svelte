@@ -4,17 +4,21 @@
 	import { TextureLoader } from 'three';
 	const loader = useLoader(TextureLoader);
 	const roughnessMap = loader.load(
-		'/laminate-flooring-brown-bl/laminate-flooring-brown_roughness.png'
+		'/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_roughness.png'
 	);
 	const normalMap = loader.load(
-		'/laminate-flooring-brown-bl/laminate-flooring-brown_normal-ogl.png'
+		'/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_normal-ogl.png'
 	);
 	const metallicMap = loader.load(
-		'/laminate-flooring-brown-bl/laminate-flooring-brown_metallic.png'
+		'/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_metallic.png'
 	);
-	const heightMap = loader.load('/laminate-flooring-brown-bl/laminate-flooring-brown_height.png');
-	const aoMap = loader.load('/laminate-flooring-brown-bl/laminate-flooring-brown_ao.png');
-	const textureMap = loader.load('/laminate-flooring-brown-bl/laminate-flooring-brown_albedo.png');
+	const heightMap = loader.load(
+		'/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_height.png'
+	);
+	const aoMap = loader.load('/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_ao.png');
+	const textureMap = loader.load(
+		'/Plinko/laminate-flooring-brown-bl/laminate-flooring-brown_albedo.png'
+	);
 </script>
 
 <T.Group position={[0, -1.8, 0]}>
