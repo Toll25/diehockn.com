@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 
-	let { color }: { color: number[] } = $props();
+	let { color = $bindable() }: { color: number[] } = $props();
 
 	let startTime: number = getContext('startTime');
 	let elapsedSeconds = $derived((Date.now() - startTime) / 1000);
