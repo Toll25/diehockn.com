@@ -40,8 +40,8 @@
 			</div>
 		{/each}
 
-		<div class="relative">
-			<div class="flex h-12 justify-center">
+		<div class="relative grow">
+			<div class="flex h-full min-h-12 justify-center">
 				<BeaconBeam color={[255, 255, 255]} />
 			</div>
 		</div>

@@ -81,15 +81,11 @@
 	});
 
 	function next() {
-		if (startIndex + numShown < colorsAndResults.length) {
-			startIndex++;
-		}
+		startIndex++;
 	}
 
 	function prev() {
-		if (startIndex > 0) {
-			startIndex--;
-		}
+		startIndex--;
 	}
 	$inspect(numShown);
 	$inspect(colorsAndResults);
@@ -97,23 +93,27 @@
 
 <svelte:window bind:innerWidth />
 <div
-	class="relative flex h-full max-w-[70%] flex-row overflow-x-auto overflow-y-visible rounded border-2 border-primary bg-surface1"
+	class="relative flex h-full min-h-0 max-w-[70%] flex-row rounded border-2 border-primary bg-surface1"
 	id="colors_container"
 >
-	{#each shownArray as resultAndColors}
-		<div bind:clientWidth={beaconWidth}>
-			<ResultDisplay {resultAndColors} {collapsed} />
-		</div>
-	{/each}
+	<div class="flex h-full overflow-y-scroll">
+		{#each shownArray as resultAndColors}
+			<div bind:clientWidth={beaconWidth}>
+				<ResultDisplay {resultAndColors} {collapsed} />
+			</div>
+		{/each}
+	</div>
 	<button
-		class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background"
+		class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background disabled:opacity-50"
 		onclick={next}
+		disabled={!(startIndex + numShown < colorsAndResults.length)}
 	>
 		<Icon icon="mdi:chevron-right" class="h-6 w-6"></Icon>
 	</button>
 	<button
-		class="absolute left-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background"
+		class="absolute left-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background disabled:opacity-50"
 		onclick={prev}
+		disabled={!(startIndex > 0)}
 	>
 		<Icon icon="mdi:chevron-left" class="h-6 w-6"></Icon>
 	</button>
