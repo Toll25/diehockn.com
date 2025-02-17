@@ -54,14 +54,12 @@
 				};
 
 				try {
-					// Create an array of promises instead of awaiting inside the loop
 					const promises = panesCopy.map((pane) => {
 						accumulatedPanes.push(pane);
 						let compoundString = accumulatedPanes.join(',');
-						return callApi(compoundString); // Return a promise
+						return callApi(compoundString);
 					});
 
-					// Wait for all API calls to complete in parallel
 					const colors = await Promise.all(promises);
 
 					colorsAndResults.push({ result, colors });
@@ -87,8 +85,6 @@
 	function prev() {
 		startIndex--;
 	}
-	$inspect(numShown);
-	$inspect(colorsAndResults);
 </script>
 
 <svelte:window bind:innerWidth />

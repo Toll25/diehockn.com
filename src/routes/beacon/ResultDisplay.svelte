@@ -1,23 +1,23 @@
 <script lang="ts">
-	import { colorToArray } from './+page.svelte';
+	import { colorToArray, type Color } from './+page.svelte';
 	import BeaconBeam from './BeaconBeam.svelte';
 	import PaneColorDisplay from './PaneColorDisplay.svelte';
 	import type { ResultAndColors } from './Results.svelte';
 
 	let { resultAndColors, collapsed }: { resultAndColors: ResultAndColors; collapsed: boolean } =
 		$props();
-	let panes = $derived.by(() => {
-		return JSON.parse(JSON.stringify(resultAndColors.result.panes));
-	});
+	let panes = $derived(JSON.parse(JSON.stringify(resultAndColors.result.panes)).reverse());
+	let colors: Color[] = $derived(JSON.parse(JSON.stringify(resultAndColors.colors)).reverse());
 	function toUpper(str: string) {
 		return str
 			.toLowerCase()
 			.split(' ')
 			.map(function (word: string) {
-				return word[0].toUpperCase() + word.substr(1);
+				return word[0].toUpperCase() + word.substring(1);
 			})
 			.join(' ');
 	}
+	$inspect(colors);
 </script>
 
 <div class="flex h-full w-40 min-w-40 flex-col content-center items-center align-middle">
@@ -26,11 +26,11 @@
 	>
 		<BeaconBeam color={colorToArray(resultAndColors.result.originalColor)} />
 	</div>
-	<div class="flex h-fit w-full flex-col">
-		{#each resultAndColors.result.panes as pane, index}
+	<div class="flex w-full grow flex-col">
+		{#each panes as pane, index}
 			<div class="relative">
 				<div class="flex h-28 justify-center">
-					<BeaconBeam color={colorToArray(resultAndColors.colors[index])} />
+					<BeaconBeam color={colorToArray(colors[index])} />
 				</div>
 				<div
 					class="group absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 transform cursor-help"

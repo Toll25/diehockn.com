@@ -70,6 +70,7 @@
 					const apiResponse = responseMap.get(JSON.stringify(item));
 					return {
 						...apiResponse,
+						// panes: apiResponse.panes.reverse(),
 						originalColor: { red: item[0], green: item[1], blue: item[2] }
 					};
 				});
