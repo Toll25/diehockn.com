@@ -6,10 +6,11 @@
 </script>
 
 <script lang="ts">
-	import Icon from '@iconify/svelte';
 	import type { Approximation, Color } from './+page.svelte';
 	import PaneColorDisplay from './PaneColorDisplay.svelte';
 	import ResultDisplay from './ResultDisplay.svelte';
+	import IconButton from './IconButton.svelte';
+	import Button from './Button.svelte';
 
 	let resourceDisplay = $state(false);
 	let collapsed = $state(true);
@@ -99,24 +100,30 @@
 			</div>
 		{/each}
 	</div>
-	<button
-		class="absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background disabled:opacity-50"
-		onclick={next}
-		disabled={!(startIndex + numShown < colorsAndResults.length)}
-	>
-		<Icon icon="mdi:chevron-right" class="h-6 w-6"></Icon>
-	</button>
-	<button
-		class="absolute left-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-background disabled:opacity-50"
-		onclick={prev}
-		disabled={!(startIndex > 0)}
-	>
-		<Icon icon="mdi:chevron-left" class="h-6 w-6"></Icon>
-	</button>
+
+	<div class="absolute right-4 top-1/2 flex -translate-y-1/2">
+		<IconButton
+			onclick={next}
+			icon_name="mdi:chevron-right"
+			id="scroll_right_button"
+			hidden={!(startIndex + numShown < colorsAndResults.length)}
+		/>
+	</div>
+
+	<div class="absolute left-4 top-1/2 flex -translate-y-1/2">
+		<IconButton
+			onclick={prev}
+			icon_name="mdi:chevron-left"
+			id="scroll_left_button"
+			hidden={!(startIndex > 0)}
+		/>
+	</div>
 </div>
 
 {#if resourceDisplay}
-	<div class="mt-8 flex flex-col rounded border-2 border-secondary bg-surface1 p-2 font-mono">
+	<div
+		class="absolute top-1/2 flex -translate-y-1/2 flex-col rounded border-2 border-secondary bg-surface1 p-2 font-mono"
+	>
 		{#each Object.entries(counts) as [color, count]}
 			<div class="inline-flex">
 				<div class="w-12">
@@ -129,19 +136,16 @@
 	</div>
 {/if}
 
-<div class="mt-8 flex flex-col items-center">
-	<div class="mb-2 flex flex-row">
-		<button
-			class="mr-2 rounded bg-primary px-2 py-1 text-background"
-			onclick={() => (collapsed = !collapsed)}>Show Details</button
-		>
+<div class="mt-8 flex flex-col items-center justify-center">
+	<div class="mb-2 flex whitespace-nowrap">
+		<div class="mr-2">
+			<Button onclick={() => (collapsed = !collapsed)} id="show_details_button">Show Details</Button
+			>
+		</div>
 
-		<button
-			class="rounded bg-primary px-2 py-1 text-background"
-			onclick={() => (resourceDisplay = !resourceDisplay)}>Show Resources</button
+		<Button onclick={() => (resourceDisplay = !resourceDisplay)} id="show_details_button"
+			>Show Resources</Button
 		>
 	</div>
-	<button class=" w-fit rounded bg-primary px-2 py-1 text-background" onclick={returnToInput}
-		>Return</button
-	>
+	<Button onclick={returnToInput} id="return_button">Return</Button>
 </div>

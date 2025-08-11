@@ -47,7 +47,7 @@
 </script>
 
 <div class="flex h-full w-full flex-col">
-	<div class="flex h-full min-h-0 w-full flex-col items-center">
+	<div class="flex h-full min-h-0 w-full flex-col items-center pb-8 pt-2">
 		<div class="mb-8 flex w-full items-center justify-center pt-2">
 			<div class="text-2xl font-bold">Beacon Calculator</div>
 		</div>
@@ -62,7 +62,7 @@
 		{/if}
 	</div>
 
-	<div class="flex flex-shrink-0 flex-row justify-end">
+	<div class="absolute bottom-0 right-0">
 		<div class="mb-2 mr-2 flex flex-col">
 			Powered by:
 			<a

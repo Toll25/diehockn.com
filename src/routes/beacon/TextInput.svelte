@@ -3,6 +3,7 @@
 	import htmlColorsImport from './html-colors.json';
 	import BeaconBeam from './BeaconBeam.svelte';
 	import { untrack } from 'svelte';
+	import IconButton from './IconButton.svelte';
 	const htmlColors: Record<string, string> = htmlColorsImport;
 
 	const hex = new RegExp(/^(0x|#)?([\dA-Fa-f]{6}|[\dA-Fa-f]{3})$/, 'i');
@@ -109,6 +110,9 @@
 	);
 
 	let colorPicker: HTMLElement;
+	function handleIconClick() {
+		colorPicker.click();
+	}
 	let { colors = $bindable() }: { colors: number[][] } = $props();
 </script>
 
@@ -136,14 +140,6 @@
 		/>
 	</div>
 
-	<button
-		id="color_picker"
-		class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-primary"
-		onclick={() => {
-			colorPicker.click();
-		}}
-	>
-		<Icon class="h-5/6 w-5/6" icon="circum:picker-half" />
-	</button>
 	<input type="color" class="hidden" bind:value={colorPickerValue} bind:this={colorPicker} />
+	<IconButton onclick={handleIconClick} icon_name="circum:picker-half" id="color_picker" />
 </div>

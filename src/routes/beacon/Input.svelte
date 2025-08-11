@@ -1,9 +1,10 @@
 <script lang="ts">
-	import Icon from '@iconify/svelte';
 	import ColorRow from './ColorRow.svelte';
 
 	import TextInput from './TextInput.svelte';
 	import type { Approximation } from './+page.svelte';
+	import Button from './Button.svelte';
+	import IconButton from './IconButton.svelte';
 	interface Props {
 		results: Approximation[];
 		colors: number[][];
@@ -102,40 +103,35 @@
 	<div class="mt-8 select-none text-xl text-subtext">No colors chosen yet</div>
 {/if}
 <div class="mt-auto">
-	<div class="mt-8">
-		<button
-			class="rounded bg-primary px-2 py-1 text-background disabled:opacity-50"
-			onclick={calculate}
-			disabled={colors[0] ? false : true}>Calculate</button
+	<div class="mt-8 flex flex-row">
+		<Button onclick={calculate} id="calculate_button" disabled={colors[0] ? false : true}
+			>Calculate</Button
 		>
 		<div class="relative ml-2 inline-block text-left">
-			Accuracy:
-			<div class="relative w-28 min-w-28">
-				<button
-					class="flex w-full items-center justify-center rounded bg-primary px-2 py-1 text-background disabled:opacity-50"
-					onclick={() => {
-						dropdown = !dropdown;
-					}}
-					disabled={colors[0] ? false : true}
-				>
-					<Icon icon="mdi:chevron-down" class="absolute left-2"></Icon>
-					<span>{dropdownValue}</span>
-				</button>
-			</div>
+			<IconButton
+				onclick={() => {
+					dropdown = !dropdown;
+				}}
+				id="dropdown_button"
+				icon_name="circum:settings"
+			></IconButton>
+
 			{#if dropdown}
 				<div
-					class="animate-fadeIn absolute right-0
-                                       mt-2 w-48 origin-top-right
-                                       rounded border-2 border-secondary bg-surface1
+					class="absolute bottom-0 left-full
+                                       ml-2 w-48
+                                       cursor-default
+                                       rounded border-2 border-secondary bg-surface1 px-4 pt-2
                                        "
 					id="dropdownMenuRight"
 				>
+					Accuracy:
 					<button
 						onclick={() => {
 							dropdownValue = 'High';
 							dropdown = false;
 						}}
-						class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
+						class={`flex w-full items-center justify-between rounded-t py-2 text-sm hover:text-subtext ${dropdownValue == 'High' ? 'text-primary' : ''}`}
 					>
 						<span>High</span>
 						<span class="text-subtext">(2 sec/color)</span>
@@ -145,7 +141,7 @@
 							dropdownValue = 'Normal';
 							dropdown = false;
 						}}
-						class="flex w-full items-center justify-between rounded-t px-4 py-2 text-sm hover:text-subtext"
+						class={`${dropdownValue == 'Normal' ? 'text-primary' : ''} flex w-full items-center justify-between rounded-t py-2 text-sm hover:text-subtext`}
 					>
 						<span>Normal</span>
 						<span class="text-subtext">(0.3 sec/color)</span>
@@ -153,7 +149,5 @@
 				</div>
 			{/if}
 		</div>
-
-		<div class="h-2"></div>
 	</div>
 </div>
