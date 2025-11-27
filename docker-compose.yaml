@@ -8,7 +8,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.diehockn.rule=Host(`diehockn.com`)
-      - traefik.http.routers.diehockn.entrypoints=websecure
+      - traefik.http.routers.diehockn.entrypoints=websecure,webpublic
       - traefik.http.services.diehockn.loadbalancer.server.port=3000
       - traefik.http.routers.diehockn.tls=true
       - traefik.http.routers.diehockn.tls.certresolver=cloudflare
