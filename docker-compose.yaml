@@ -1,10 +1,10 @@
 services:
   web:
     image: diehockn.com
-    ports:
-      - 5012:3000
+    #ports:
+    #  - 5012:3000
     networks:
-      - frontend
+      - traefik
     labels:
       - traefik.enable=true
       - traefik.http.routers.diehockn.rule=Host(`diehockn.com`)
@@ -16,5 +16,5 @@ services:
     # - /opt/configs/diehockn.com/repo:/repo
     restart: unless-stopped
 networks:
-  frontend:
+  traefik:
     external: true
