@@ -16,5 +16,5 @@ services:
     # - /opt/configs/diehockn.com/repo:/repo
     restart: unless-stopped
 networks:
-  traefik:
+  tk-website:
     external: true
