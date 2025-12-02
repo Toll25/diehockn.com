@@ -4,7 +4,7 @@ services:
     #ports:
     #  - 5012:3000
     networks:
-      - traefik
+      - tk-website
     labels:
       - traefik.enable=true
       - traefik.http.routers.diehockn.rule=Host(`diehockn.com`)
